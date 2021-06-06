@@ -10,7 +10,7 @@
 <jsp:include page="header.jsp"/>
 <jsp:include page="menu.jsp"/>
 <jsp:include page="userInfo.jsp"/>
-<h2>Products and prices</h2>
+<h2>Цены на продукцию</h2>
 <table border="1">
     <thead style="text-align: left">
     <tr>

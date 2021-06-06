@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <div style="background: lightgray; height: 60px; padding: 5px">
-    <div style="float: left">ВАГОНКА ХАРЬКОВ</div>
+    <div style="float: left; height: 24px">ВАГОНКА ХАРЬКОВ</div>
     <div style="float: right; padding: 5px; text-align: right;">
 
         <div class="custom_header-h4"><a class="logo" href="tel:380678369341">

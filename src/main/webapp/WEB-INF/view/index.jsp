@@ -6,13 +6,13 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Vagonka</title>
+    <title>Home</title>
 </head>
 <body>
 <jsp:include page="header.jsp"/>
 <jsp:include page="menu.jsp"/>
 <jsp:include page="userInfo.jsp"/>
-<h2>Home page</h2>
+<h2>Главная</h2>
 <ul>
     <li><a href="vagonka-smereka">Вагонка смерека</a>
     <li><a href="vagonka-sosna.jsp">Вагонка сосна</a>

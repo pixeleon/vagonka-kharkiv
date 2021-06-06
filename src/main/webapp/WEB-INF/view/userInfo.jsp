@@ -4,13 +4,13 @@
          pageEncoding="UTF-8" %>
 <div style="text-align: left">
     <sec:authorize access="isAuthenticated()">
-        <b>User: </b><i><sec:authentication property="principal.username"/></i> |
-        <a href="${pageContext.request.contextPath}/admin/products">Products</a> |
-        <a href="${pageContext.request.contextPath}/admin/orders">Orders</a> |
-        <a href="${pageContext.request.contextPath}/logout">Logout</a>
+        <strong>User: </strong><em><sec:authentication property="principal.username"/></em> |
+        <a href="${pageContext.request.contextPath}/admin/products">Продукция</a> |
+        <a href="${pageContext.request.contextPath}/admin/orders">Заказы</a> |
+        <a href="${pageContext.request.contextPath}/logout">Выйти</a>
     </sec:authorize>
     <sec:authorize access="isAnonymous()">
-        <b>Not logged in</b> | <a href="login">Login</a>
+        <strong>Не авторизован</strong> | <a href="login">Войти</a>
     </sec:authorize>
 </div>
 <hr>

@@ -4,13 +4,13 @@
 
 <div style="text-align: left">
     <nav>
-        <a href="${pageContext.request.contextPath}/index">Home page</a>
+        <a href="${pageContext.request.contextPath}/index">Главная</a>
         |
-        <a href="${pageContext.request.contextPath}/products">Prices</a>
+        <a href="${pageContext.request.contextPath}/products">Цены</a>
         |
-        <a href="${pageContext.request.contextPath}/about">About</a>
+        <a href="${pageContext.request.contextPath}/about">О нас</a>
         |
-        <a href="${pageContext.request.contextPath}/make-order">Make order</a>
+        <a href="${pageContext.request.contextPath}/make-order">Заказать</a>
     </nav>
 </div>
 <hr>
