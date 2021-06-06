@@ -11,7 +11,13 @@
 <jsp:include page="menu.jsp"/>
 <jsp:include page="userInfo.jsp"/>
 <h2>Products list</h2>
-<a href="${pageContext.request.contextPath}/admin/create-product">Add new product</a><br><br>
+<div style="text-align: left">
+    <a href="${pageContext.request.contextPath}/admin/create-product">Add new product</a> |
+    <a href="/admin/products-to-pdf">Export to PDF</a> |
+    <a href="/admin/products-to-xls">Export to Excel</a> |
+    <a href="/admin/products-to-csv">Export to CSV</a> |
+    <a href="/admin/products-to-txt">Export to TXT</a>
+</div><br>
 <table border="1">
     <thead style="text-align: left">
     <tr>

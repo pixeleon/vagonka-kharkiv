@@ -66,14 +66,6 @@ public class ProductsController {
         return "redirect:/admin/products";
     }
 
-    private void populateProductSaveForm(Model model) {
-        List<ProductTypeDto> productTypes = productService
-                .findAllProductTypes();
-        List<ProductMuDto> productMus = productService.findAllProductMus();
-        model.addAttribute("productTypes", productTypes);
-        model.addAttribute("productMus", productMus);
-    }
-
     @GetMapping("/create-product")
     public String showProductCreateForm(Model model) {
         SaveProductDto product = new SaveProductDto();
@@ -93,5 +85,13 @@ public class ProductsController {
             productService.saveProduct(productDto);
             return "redirect:/admin/products";
         }
+    }
+
+    private void populateProductSaveForm(Model model) {
+        List<ProductTypeDto> productTypes = productService
+                .findAllProductTypes();
+        List<ProductMuDto> productMus = productService.findAllProductMus();
+        model.addAttribute("productTypes", productTypes);
+        model.addAttribute("productMus", productMus);
     }
 }

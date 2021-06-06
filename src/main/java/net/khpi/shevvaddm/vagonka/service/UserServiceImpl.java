@@ -2,6 +2,7 @@ package net.khpi.shevvaddm.vagonka.service;
 
 import net.khpi.shevvaddm.vagonka.dao.UserDao;
 import net.khpi.shevvaddm.vagonka.dao.UserRoleDao;
+import net.khpi.shevvaddm.vagonka.dto.DtoUtils;
 import net.khpi.shevvaddm.vagonka.dto.UserDto;
 import net.khpi.shevvaddm.vagonka.model.User;
 import net.khpi.shevvaddm.vagonka.model.UserRole;
@@ -15,11 +16,17 @@ import java.util.stream.Collectors;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private static final Long DEFAULT_USER_ROLE_ID = 1l;
+    private static final long DEFAULT_USER_ROLE_ID = 1L;
     private static final long ADMIN_USER_ROLE_ID = 2L;
 
+    private DtoUtils dtoUtils;
     private UserRoleDao userRoleDao;
     private UserDao userDao;
+
+    @Autowired
+    public void setDtoUtils(DtoUtils dtoUtils) {
+        this.dtoUtils = dtoUtils;
+    }
 
     @Autowired
     public void setUserRoleDao(UserRoleDao userRoleDao) {
@@ -34,54 +41,47 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public void insertUser(UserDto userDto) {
-        userDao.save(convertUserDtoToUserEntity(userDto));
+        long userRoleId = userDto.getUserRoleId();
+        User user = dtoUtils.mapUserDtoToUserEntity(userDto);
+        UserRole userRole = getUserRole(userRoleId);
+        user.setUserRole(userRole);
+        userDao.save(user);
+    }
+
+    private UserRole getUserRole(long userRoleId) {
+        return userRoleDao.findById(userRoleId)
+                .orElse(userRoleDao.findById(DEFAULT_USER_ROLE_ID)
+                        .orElseThrow(() -> new ServiceException("Unable to set user role")));
     }
 
     @Transactional
     @Override
     public void updateUser(UserDto userDto) {
-        userDao.save(convertUserDtoToUserEntity(userDto));
+        userDao.save(dtoUtils.mapUserDtoToUserEntity(userDto));
     }
 
     @Transactional
     @Override
     public void deleteUser(UserDto userDto) {
-        userDao.delete(convertUserDtoToUserEntity(userDto));
+        userDao.delete(dtoUtils.mapUserDtoToUserEntity(userDto));
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     @Override
-    public List<UserDto> findAllAdminUsers() {
-        return userDao.findAllByUserRoleId(ADMIN_USER_ROLE_ID).stream()
-                .map(this::convertUserEntityToUserDto)
+    public List<UserDto> findAllUsers() {
+        return userDao.findAll()
+                .stream()
+                .map(dtoUtils::mapUserEntityToUserDto)
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public UserDto convertUserEntityToUserDto(User user) {
-        UserDto userDto = new UserDto();
-        userDto.setUserId(userDto.getUserId());
-        userDto.setUsername(user.getUsername());
-        userDto.setPassword(user.getPassword());
-        userDto.setEmail(user.getEmail());
-        userDto.setUserRoleId(userDto.getUserRoleId());
-        return userDto;
+    @Transactional(readOnly = true)
+    public List<UserDto> findAllNotAdminUsers() {
+        return userDao.findAll()
+                .stream()
+                .filter(u ->
+                        u.getUserRole().getUserRoleId() != ADMIN_USER_ROLE_ID)
+                .map(dtoUtils::mapUserEntityToUserDto)
+                .collect(Collectors.toList());
     }
-
-    @Override
-    public User convertUserDtoToUserEntity(UserDto dto) {
-        User user = new User();
-        user.setUserId(dto.getUserId());
-        user.setUsername(dto.getUsername());
-        user.setPassword(dto.getPassword());
-        user.setEmail(dto.getEmail());
-
-        UserRole userRole = userRoleDao.findById(DEFAULT_USER_ROLE_ID)
-                .orElseThrow(() -> new ServiceException(
-                        "Default user role not found by ID: "));
-        user.setUserRole(userRole);
-
-        return user;
-    }
-
 }

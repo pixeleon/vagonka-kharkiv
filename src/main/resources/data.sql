@@ -25,8 +25,7 @@ VALUES ('Вагонка'),
 
 INSERT INTO PRODUCT_MU (MU_ABBR)
 VALUES ('м2'),
-       ('м.п.'),
-       ('вагонка');
+       ('м.п.');
 
 INSERT INTO PRODUCT (TYPE_ID, MU_ID, WOOD_TYPE, WOOD_KIND, PRICE, AMOUNT)
 VALUES (1, 1, 'Сосна', 'Первый', 110.0, 1092),
